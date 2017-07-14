@@ -1,4 +1,4 @@
-var ApplitoolsTestResultHandler = require('./aptest.js').ApplitoolsTestResultHandler;
+var ApplitoolsTestResultHandler = require('./applitoolsTestHandler.js').ApplitoolsTestResultHandler;
 
 const {Builder, By, until} = require('selenium-webdriver');
 var path = require('chromedriver').path;
