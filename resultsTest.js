@@ -18,14 +18,14 @@ try {
     driver.get('https://applitools.com/helloworld');
     eyes.checkWindow('Main Page');
     driver.findElement(By.tagName('button')).click();
-    eyes.checkWindow('Click!!!');
+    eyes.checkWindow('Click!');
     }).then(function(){
       return eyes.close(false);
     }).then(function(testResult){
       var handler= new ApplitoolsTestResultHandler(testResult, applitoolsViewKey);
-      
+
       handler.downloadImages(downloadDir, 'baseline'); //valid types = baseline, current, diff
-      
+
       var testStatus = handler.stepStatusArray();
       console.log("My Test Status: " + testStatus)
     });

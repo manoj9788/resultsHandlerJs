@@ -151,7 +151,6 @@ class ApplitoolsTestResultHandler {
       process.chdir(dir);
     });
     process.chdir(currentDir);
-
     return (path +"/"+ dirStructure.toString().replace(/,/g, '/'));
   }
 
