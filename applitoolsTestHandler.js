@@ -26,6 +26,13 @@ class ApplitoolsTestResultHandler {
   }
 
   downloadImages(dir, type) {
+    if (dir == undefined || !fs.existsSync(dir)) {
+      console.log("Directory was undefined or non-existent. Saving images to: " + process.cwd());
+      dir = process.cwd();
+    } else {
+      console.log("Saving images to: " + dir);
+    }
+
     var imagesDir = this.directoryCreator(dir);
     var images = this.getImageUrls(type);
     for (var i = 0, len = images.length; i < len; i++) {
@@ -183,7 +190,7 @@ class ApplitoolsTestResultHandler {
 
     if (imageUrls.length == 0) {
       console.log("No " + type + " images were found. Exiting...")
-      process.exit(-1);
+      process.exit(-1); //Maybe return on this instead. Could exit out of script premature.
     }
     return imageUrls;
   }

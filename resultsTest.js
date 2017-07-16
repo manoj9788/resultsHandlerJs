@@ -6,12 +6,11 @@ var driver = new Builder().forBrowser('chrome').build();
 var Eyes = require('eyes.selenium').Eyes;
 var eyes = new Eyes();
 
-var applitoolsKey = 'your applitools key'
+var applitoolsKey = 'Your Applitools Key'
+var applitoolsViewKey = 'Your Applitools View Key'
+var downloadDir = 'Your Download Directory' //e.g. /Users/images
+
 eyes.setApiKey(applitoolsKey);
-
-var applitoolsViewKey = 'your applitools view key'
-
-var downloadDir = 'your download directory' //e.g. /Users/images
 
 try {
   eyes.open(driver, 'Applitools', 'Test Web Page', {width: 900, height: 600}).then(function(driver) {
