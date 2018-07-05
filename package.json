@@ -13,6 +13,6 @@
     "selenium-webdriver": "3.6.0"
   },
   "scripts": {
-    "test": "mocha -t 60000"
+    "test": "./node_modules/mocha/bin/mocha -t 60000"
   }
 }
