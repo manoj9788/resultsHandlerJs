@@ -10,7 +10,7 @@ describe('Simple Test', function() {
 
     beforeEach(async function() {
         eyes = new Eyes();
-        eyes.setApiKey("HZeTQj103qqbLJkpT0Ez81CTbivkDEYQx4Q7GjM104Kv2Hg110");
+        eyes.setApiKey("YOUR-API-KEY");
         driver = await new Builder().forBrowser('chrome').build();
     });
 
@@ -21,7 +21,7 @@ describe('Simple Test', function() {
 
     it('Results Handler test', async function() {
 
-        var applitoolsViewKey = '3Q0uVg0jxpEtd8iA3T9HONwOUnZUikHMqnfdUlsPdKA110'
+        var applitoolsViewKey = 'YOUR-VIEW-KEY'
         let downloadPath = process.cwd()+'/downloadImages'
         var downloadDir = downloadPath
 
@@ -34,11 +34,10 @@ describe('Simple Test', function() {
         let results = await eyes.close(false);
 
         const handler= new ApplitoolsTestResultHandler(results, applitoolsViewKey);
-        handler.downloadImages(downloadDir, 'diff'); //valid types = baseline, current, diff
-        handler.getStepResults();
+        await handler.downloadImages(downloadDir, 'diff'); //valid types = baseline, current, diff
 
         let testStatus = handler.stepStatusArray();
-        console.log("My Test Status: " + testStatus +  Promise.resolve(handler.getStepResults()));
+        console.log("My Test Status: " + testStatus);
 
 
     });
