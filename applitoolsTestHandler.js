@@ -1,5 +1,7 @@
 const fs =require('fs');
 const https = require('https');
+var OnlyGetDiffs = false;
+var dirStructure;
 
 class ApplitoolsTestResultHandler {
     constructor(testResult, viewKey) {
@@ -35,7 +37,11 @@ class ApplitoolsTestResultHandler {
         for (let i = 0, len = images.length; i < len; i++) {
             const fileName = `${imagesDir}/${images[i][0]}`;
             const downloadUrl = (`${images[i][1]}?apiKey=${this.viewKey}`);
-            this.downloadImage(fileName, downloadUrl);
+
+            if(type == "diff" & this.OnlyGetDiffs && this.testResult.stepsInfo[i].isDifferent)               
+                this.downloadImage(fileName, downloadUrl);
+            else if(!this.OnlyGetDiffs || type != "diff")
+                this.downloadImage(fileName, downloadUrl);
         }
     }
 
@@ -141,8 +147,12 @@ class ApplitoolsTestResultHandler {
     }
 
     directoryCreator(path) {
-        const dirStructure = [this.testName,this.appName,this.viewportSize,
-            this.hostOS,this.hostApp,this.batchId,this.sessionId];
+        if(this.dirStructure != undefined)
+            dirStructure = this.dirStructure.concat([this.batchId, this.sessionId]);
+        else {
+            dirStructure = [this.testName, this.appName, this.viewportSize,
+            this.hostOS, this.hostApp, this.batchId, this.sessionId];
+           }
 
         const currentDir = process.cwd();
         process.chdir(path);
@@ -196,6 +206,16 @@ class ApplitoolsTestResultHandler {
             response.pipe(file);
         });
     }
+
+
+    setDownloadDiffOnly(getDiffsOnly) {
+        this.OnlyGetDiffs = getDiffsOnly;
+
+    }
+
+    setDirStructure(DirStructure) {
+        this.dirStructure = DirStructure;
+}
 }
 
 exports.ApplitoolsTestResultHandler = ApplitoolsTestResultHandler;
